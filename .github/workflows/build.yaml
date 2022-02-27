@@ -3,8 +3,17 @@ on:
   push:
   watch:
     types: started
-  schedule:
-    - cron: "0 0 * * */3"
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Build target"
+        required: true
+        default: all
+        type: choice
+        options:
+        - x64
+        - wr941nd
+        - all
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -13,6 +22,7 @@ jobs:
   X64:
     runs-on: ubuntu-latest
     name: Arch x64
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'x64'
     steps:
     - name: Checkout
       uses: actions/checkout@main
@@ -35,6 +45,7 @@ jobs:
 
   wr941ndv3:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'wr941nd'
     strategy:
       matrix:
         config:
