@@ -69,7 +69,7 @@ jobs:
         body_path: ${{ env.BODYFILE }}
         files: "${{ env.RELEASEFOLDER }}/*"
 
-    Samaritan:
+  Samaritan:
     runs-on: ubuntu-latest
     name: Samaritan
     if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Samaritan'
@@ -94,7 +94,7 @@ jobs:
         body_path: ${{ env.BODYFILE }}
         files: "${{ env.RELEASEFOLDER }}/*"
 
-    Machine:
+  Machine:
     runs-on: ubuntu-latest
     name: Machine
     if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Machine'
@@ -118,3 +118,5 @@ jobs:
         tag_name: "Machine_${{ github.run_id }}"
         body_path: ${{ env.BODYFILE }}
         files: "${{ env.RELEASEFOLDER }}/*"
+
+    
