@@ -30,8 +30,6 @@ jobs:
     - name: Copiler
       uses: Sirherobrine23/Actions-Build-Openwrt@main
       with:
-        url: https://github.com/jerrykuku/luci-theme-argon
-        url: https://github.com/jerrykuku/luci-app-argon-config
         config: .config
         workdir: Core/
 
@@ -55,8 +53,6 @@ jobs:
     - name: Copiler
       uses: Sirherobrine23/Actions-Build-Openwrt@main
       with:
-        url: https://github.com/jerrykuku/luci-theme-argon
-        url: https://github.com/jerrykuku/luci-app-argon-config
         config: .config
         workdir: Aurora/
 
@@ -80,8 +76,6 @@ jobs:
     - name: Copiler
       uses: Sirherobrine23/Actions-Build-Openwrt@main
       with:
-        url: https://github.com/jerrykuku/luci-theme-argon
-        url: https://github.com/jerrykuku/luci-app-argon-config
         config: .config
         workdir: Samaritan/
 
@@ -105,8 +99,6 @@ jobs:
     - name: Copiler
       uses: Sirherobrine23/Actions-Build-Openwrt@main
       with:
-        url: https://github.com/jerrykuku/luci-theme-argon
-        url: https://github.com/jerrykuku/luci-app-argon-config
         config: .config
         workdir: Machine/
 
