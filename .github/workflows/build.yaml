@@ -9,7 +9,10 @@ on:
         description: "Build target"
         required: true
         default: all
+        type: choice
         options:
+        - x64
+        - wr941nd
         - all
 
 env:
