@@ -9,20 +9,17 @@ on:
         description: "Build target"
         required: true
         default: all
-        type: choice
         options:
-        - x64
-        - wr941nd
         - all
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  X64:
+  Core:
     runs-on: ubuntu-latest
-    name: Arch x64
-    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'x64'
+    name: Core
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Core'
     steps:
     - name: Checkout
       uses: actions/checkout@main
@@ -30,58 +27,91 @@ jobs:
     - name: Copiler
       uses: Sirherobrine23/Actions-Build-Openwrt@main
       with:
-        config: x64.config
-        p2: p2.sh
-        workdir: x64/
+        url: https://github.com/jerrykuku/luci-theme-argon
+        url: https://github.com/jerrykuku/luci-app-argon-config
+        config: .config
+        workdir: Core/
 
-    - name: "Upload with tag: x64_${{ github.run_id }}"
+    - name: "Upload with tag: Core_${{ github.run_id }}"
       if: env.UPLOADTORELEASE == 'true'
       uses: softprops/action-gh-release@v1
       with:
-        name: Generic X64 Build
-        tag_name: "x64_${{ github.run_id }}"
+        name: Core
+        tag_name: "Core_${{ github.run_id }}"
         body_path: ${{ env.BODYFILE }}
         files: "${{ env.RELEASEFOLDER }}/*"
 
-  wr941ndv3:
+  Aurora:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'wr941nd'
-    strategy:
-      matrix:
-        config:
-          - adblock
-          - cli
-          - luci
-          - wireguard-luci
-          - wireguard-cli
-        branch:
-          - openwrt-19.07
-          - openwrt-18.06
-
-    name: "Branch: ${{ matrix.branch }}, Config: ${{ matrix.config }}"
+    name: Aurora
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Aurora'
     steps:
-    - name: Checkout Reposiory
+    - name: Checkout
       uses: actions/checkout@main
 
-    - name: "Copiler Openwrt with config: ${{ matrix.config }}, and Branch: ${{ matrix.branch }}"
+    - name: Copiler
       uses: Sirherobrine23/Actions-Build-Openwrt@main
-      continue-on-error: true
       with:
-        config: "configs/${{ matrix.config }}.config"
-        branch: "${{ matrix.branch }}"
-        p2: p2.sh
-        workdir: wr941nd_v3/
-        namefiles: |
-          ${{ matrix.branch }}
-          ${{ matrix.config }}
+        url: https://github.com/jerrykuku/luci-theme-argon
+        url: https://github.com/jerrykuku/luci-app-argon-config
+        config: .config
+        workdir: Aurora/
 
-    - name: "Upload with tag: WR941ND_v3-${{ github.run_id }}"
+    - name: "Upload with tag: Aurora_${{ github.run_id }}"
       if: env.UPLOADTORELEASE == 'true'
       uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: "TP-Link WR941NDv3, Branch: ${{ matrix.branch }}, Config: ${{ matrix.config }}"
-        tag_name: "WR941ND_v3-${{ github.run_id }}"
+        name: Aurora
+        tag_name: "Aurora_${{ github.run_id }}"
+        body_path: ${{ env.BODYFILE }}
+        files: "${{ env.RELEASEFOLDER }}/*"
+
+    Samaritan:
+    runs-on: ubuntu-latest
+    name: Samaritan
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Samaritan'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Copiler
+      uses: Sirherobrine23/Actions-Build-Openwrt@main
+      with:
+        url: https://github.com/jerrykuku/luci-theme-argon
+        url: https://github.com/jerrykuku/luci-app-argon-config
+        config: .config
+        workdir: Samaritan/
+
+    - name: "Upload with tag: Samaritan_${{ github.run_id }}"
+      if: env.UPLOADTORELEASE == 'true'
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Samaritan
+        tag_name: "Samaritan_${{ github.run_id }}"
+        body_path: ${{ env.BODYFILE }}
+        files: "${{ env.RELEASEFOLDER }}/*"
+
+    Machine:
+    runs-on: ubuntu-latest
+    name: Machine
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Machine'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Copiler
+      uses: Sirherobrine23/Actions-Build-Openwrt@main
+      with:
+        url: https://github.com/jerrykuku/luci-theme-argon
+        url: https://github.com/jerrykuku/luci-app-argon-config
+        config: .config
+        workdir: Machine/
+
+    - name: "Upload with tag: Machine_${{ github.run_id }}"
+      if: env.UPLOADTORELEASE == 'true'
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Machine
+        tag_name: "Machine_${{ github.run_id }}"
         body_path: ${{ env.BODYFILE }}
         files: "${{ env.RELEASEFOLDER }}/*"
