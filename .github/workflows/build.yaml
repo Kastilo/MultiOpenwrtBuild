@@ -32,6 +32,7 @@ jobs:
       with:
         CONFIG: .config
         WORKDIR: Core/
+        p1: p1.sh
 
     - name: "Upload with tag: Core_${{ github.run_id }}"
       if: env.UPLOADTORELEASE == 'true'
@@ -55,6 +56,7 @@ jobs:
       with:
         CONFIG: .config
         WORKDIR: Aurora/
+        p1: p1.sh
 
     - name: "Upload with tag: Aurora_${{ github.run_id }}"
       if: env.UPLOADTORELEASE == 'true'
@@ -78,6 +80,7 @@ jobs:
       with:
         CONFIG: .config
         WORKDIR: Samaritan/
+        p1: p1.sh
 
     - name: "Upload with tag: Samaritan_${{ github.run_id }}"
       if: env.UPLOADTORELEASE == 'true'
@@ -100,7 +103,8 @@ jobs:
       uses: Sirherobrine23/Actions-Build-Openwrt@main
       with:
         CONFIG: .config
-        WORKDIR: Machine/
+        workdir: Machine/
+        p1: p1.sh
 
     - name: "Upload with tag: Machine_${{ github.run_id }}"
       if: env.UPLOADTORELEASE == 'true'
