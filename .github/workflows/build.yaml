@@ -15,7 +15,6 @@ on:
           - Aurora
           - Samaritan
           - Machine
-
  env:
    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
  
