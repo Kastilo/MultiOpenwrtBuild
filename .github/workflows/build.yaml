@@ -1,6 +1,6 @@
 name: OpenWrt Builds
 on:
-    push:
+  push:
    workflow_dispatch:
      inputs:
        target:
