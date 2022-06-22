@@ -9,11 +9,9 @@ on:
         default: all
         type: choice
         options:
+        - x64
+        - wr941nd
         - all
-        - Core
-        - Aurora
-        - Samaritan
-        - Machine
  env:
    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
  
