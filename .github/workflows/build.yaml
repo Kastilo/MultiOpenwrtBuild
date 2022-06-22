@@ -1,114 +1,62 @@
 name: OpenWrt Builds
-on:
-  push:
-  watch:
-    types: started
-  workflow_dispatch:
-    inputs:
-      target:
-        description: "Build target"
-        required: true
-        default: all
-        type: choice
-        options:
-        - x64
-        - wr941nd
-        - all
-
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-jobs:
-  Core:
-    runs-on: ubuntu-latest
-    name: Core
-    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Core'
-    steps:
-    - name: Checkout
-      uses: actions/checkout@main
-
-    - name: Copiler
-      uses: Sirherobrine23/Actions-Build-Openwrt@main
-      with:
-        config: .config
-        workdir: Core/
-
-    - name: "Upload with tag: Core_${{ github.run_id }}"
-      if: env.UPLOADTORELEASE == 'true'
-      uses: softprops/action-gh-release@v1
-      with:
-        name: Core
-        tag_name: "Core_${{ github.run_id }}"
-        body_path: ${{ env.BODYFILE }}
-        files: "${{ env.RELEASEFOLDER }}/*"
-
-  Aurora:
-    runs-on: ubuntu-latest
-    name: Aurora
-    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Aurora'
-    steps:
-    - name: Checkout
-      uses: actions/checkout@main
-
-    - name: Copiler
-      uses: Sirherobrine23/Actions-Build-Openwrt@main
-      with:
-        config: .config
-        workdir: Aurora/
-
-    - name: "Upload with tag: Aurora_${{ github.run_id }}"
-      if: env.UPLOADTORELEASE == 'true'
-      uses: softprops/action-gh-release@v1
-      with:
-        name: Aurora
-        tag_name: "Aurora_${{ github.run_id }}"
-        body_path: ${{ env.BODYFILE }}
-        files: "${{ env.RELEASEFOLDER }}/*"
-
-  Samaritan:
-    runs-on: ubuntu-latest
-    name: Samaritan
-    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Samaritan'
-    steps:
-    - name: Checkout
-      uses: actions/checkout@main
-
-    - name: Copiler
-      uses: Sirherobrine23/Actions-Build-Openwrt@main
-      with:
-        config: .config
-        workdir: Samaritan/
-
-    - name: "Upload with tag: Samaritan_${{ github.run_id }}"
-      if: env.UPLOADTORELEASE == 'true'
-      uses: softprops/action-gh-release@v1
-      with:
-        name: Samaritan
-        tag_name: "Samaritan_${{ github.run_id }}"
-        body_path: ${{ env.BODYFILE }}
-        files: "${{ env.RELEASEFOLDER }}/*"
-
-  Machine:
-    runs-on: ubuntu-latest
-    name: Machine
-    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'Machine'
-    steps:
-    - name: Checkout
-      uses: actions/checkout@main
-
-    - name: Copiler
-      uses: Sirherobrine23/Actions-Build-Openwrt@main
-      with:
-        config: .config
-        workdir: Machine/
-
-    - name: "Upload with tag: Machine_${{ github.run_id }}"
-      if: env.UPLOADTORELEASE == 'true'
-      uses: softprops/action-gh-release@v1
-      with:
-        name: Machine
-        tag_name: "Machine_${{ github.run_id }}"
-        body_path: ${{ env.BODYFILE }}
-        files: "${{ env.RELEASEFOLDER }}/*"
-
-    
+ on:
+   push:
+   workflow_dispatch:
+     inputs:
+       target:
+         description: "Build target"
+         required: true
+         default: all
+         type: choice
+         options:
+          - all
+          # Here target copiler
+          - Core
+          - Aurora
+          - Samaritan
+          - Machine
+ 
+ env:
+   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+ 
+     - name: Copiler
+       uses: Sirherobrine23/Actions-Build-Openwrt@main
+       with:
+        CONFIG: .config
+        WORKDIR: Core/
+ 
+     - name: "Upload with tag: Core_${{ github.run_id }}"
+       if: env.UPLOADTORELEASE == 'true'
+       uses: softprops/action-gh-release@v1
+ 
+     - name: Copiler
+       uses: Sirherobrine23/Actions-Build-Openwrt@main
+       with:
+        CONFIG: .config
+        WORKDIR: Aurora/
+ 
+     - name: "Upload with tag: Aurora_${{ github.run_id }}"
+       if: env.UPLOADTORELEASE == 'true'
+       uses: softprops/action-gh-release@v1
+ 
+     - name: Copiler
+       uses: Sirherobrine23/Actions-Build-Openwrt@main
+       with:
+        CONFIG: .config
+        WORKDIR: Samaritan/
+ 
+     - name: "Upload with tag: Samaritan_${{ github.run_id }}"
+       if: env.UPLOADTORELEASE == 'true'
+       uses: softprops/action-gh-release@v1
+ 
+     - name: Copiler
+       uses: Sirherobrine23/Actions-Build-Openwrt@main
+       with:
+        CONFIG: .config
+        WORKDIR: Machine/
+ 
+     - name: "Upload with tag: Machine_${{ github.run_id }}"
+       if: env.UPLOADTORELEASE == 'true'
+       uses: softprops/action-gh-release@v1
+# Build openwrt
+Build openwrt in Github CI/CD and release
