@@ -9,12 +9,9 @@ on:
          default: all
          type: choice
          options:
-         - all
-         # Here target copiler
-         - Core
-         - Aurora
-         - Samaritan
-         - Machine
+        - x64
+        - wr941nd
+        - all
  env:
    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
  
