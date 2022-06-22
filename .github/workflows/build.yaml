@@ -1,17 +1,19 @@
 name: OpenWrt Builds
 on:
   push:
-   workflow_dispatch:
-     inputs:
-       target:
-         description: "Build target"
-         required: true
-         default: all
-         type: choice
-         options:
-        - x64
-        - wr941nd
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Build target"
+        required: true
+        default: all
+        type: choice
+        options:
         - all
+        - Core
+        - Aurora
+        - Samaritan
+        - Machine
  env:
    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
  
