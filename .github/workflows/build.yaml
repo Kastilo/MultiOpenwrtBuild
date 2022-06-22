@@ -11,9 +11,6 @@ on:
          options:
           - all
           # Here target copiler
-          - Core
-          - Aurora
-          - Samaritan
  env:
    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
  
